@@ -5,8 +5,8 @@ import { LoopBackConfig } from '../shared/sdk';
 import { API_VERSION } from '../shared/baseUrl';
 import { Dishes } from '../shared/sdk/models';
 import { DishesApi } from '../shared/sdk/services';
-import { Comments } from '../shared/sdk/models';
-import { CommentsApi } from '../shared/sdk/services';
+import { Comment } from '../shared/sdk/models';
+import { CommentApi } from '../shared/sdk/services';
 import { Favorite } from '../shared/sdk/models';
 import { FavoriteApi } from '../shared/sdk/services';
 import { Customer } from '../shared/sdk/models';
@@ -36,7 +36,7 @@ export class DishdetailComponent implements OnInit {
 
   @ViewChild('cform') commentFormDirective;
   dish: Dishes;
-  comment: Comments;
+  comment: Comment;
   errMess: string;
   visibility = 'shown';
   favorite = false;
@@ -55,7 +55,7 @@ export class DishdetailComponent implements OnInit {
 
   constructor(private dishservice: DishesApi,
     private favoriteService: FavoriteApi,
-    private commentService: CommentsApi,
+    private commentService: CommentApi,
     private authService: CustomerApi,
     @Inject('baseURL') private baseURL,
     private route: ActivatedRoute,
@@ -72,7 +72,7 @@ export class DishdetailComponent implements OnInit {
     .subscribe(dish => {
       this.dish = dish;
       this.dishservice.getComments(this.dish.id, {'include': ['customer']})
-      .subscribe((comments: Comments[]) =>  { this.dish.comments = comments; });
+      .subscribe((comments: Comment[]) =>  { this.dish.comments = comments; });
       this.visibility = 'shown';
       if (this.authService.getCachedCurrent()) {
         this.authService.getFavorites(this.authService.getCachedCurrent().id, {'where': {'dishesId': this.dish.id}})
@@ -109,7 +109,7 @@ export class DishdetailComponent implements OnInit {
       })
       .subscribe(res => { console.log(res);
         this.dishservice.getComments(this.dish.id, {'include': ['customer']})
-        .subscribe((comments: Comments[]) =>  { this.dish.comments = comments; });
+        .subscribe((comments: Comment[]) =>  { this.dish.comments = comments; });
       });
     }
     this.commentFormDirective.resetForm();

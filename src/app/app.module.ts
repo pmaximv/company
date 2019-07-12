@@ -42,6 +42,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { baseURL } from './shared/baseUrl';
 
 import { SDKBrowserModule } from './shared/sdk';
+import { GridlistComponent } from './gridlist/gridlist.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SDKBrowserModule } from './shared/sdk';
     ContactComponent,
     LoginComponent,
     HighlightDirective,
-    FavoritesComponent
+    FavoritesComponent,
+    GridlistComponent
   ],
   imports: [
     BrowserModule,
